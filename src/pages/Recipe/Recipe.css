@@ -8,6 +8,10 @@
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
 }
 
+.recipe.dark {
+  background-color: #333;
+}
+
 .recipe ul {
   display: flex;
   padding: 0;
@@ -19,6 +23,10 @@
   list-style-type: none;
   margin-right: 10px;
   color: #777;
+}
+
+.recipe.dark li {
+  color: #bbb;
 }
 
 .recipe li::after {

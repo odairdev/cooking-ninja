@@ -30,6 +30,11 @@ input, textarea {
   margin: 40px auto;
   color: #333;
 }
+
+.page-title.dark {
+  color: #eee;
+}
+
 .loading, .error {
   text-align: center;
   margin: 40px auto;
