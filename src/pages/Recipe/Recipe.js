@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useTheme } from '../../hooks/useTheme'
+import { projectFirestore } from '../../firebase/config'
 
 import './Recipe.css'
-import { projectFirestore } from '../../firebase/config'
 
 export function Recipe() {
   const { id } = useParams()
@@ -16,7 +16,7 @@ export function Recipe() {
   useEffect(() => {
     setIsPending(true)
 
-    projectFirestore.collection('recipes').doc(id).get().then(doc => {
+    const unsub = projectFirestore.collection('recipes').doc(id).onSnapshot(doc => {
       if(doc.exists) {
         setIsPending(false)
         setData(doc.data())
@@ -24,8 +24,18 @@ export function Recipe() {
         setIsPending(false)
         setError('Could not find the recipe.')
       }
+    }, err => {
+      console.log(err.message)
     })
+
+    return () => unsub()
   }, [id])
+
+  const handleUpdate = () => {
+    projectFirestore.collection('recipes').doc(id).update({
+      title: 'Update function working'
+    })
+  }
 
   return (
     <div className={`recipe ${mode}`}>
@@ -41,6 +51,7 @@ export function Recipe() {
           <p className="method">{data.method}</p>
         </>
       )}
+      <button className="btn" onClick={handleUpdate}>Update Recipe</button>
     </div>
   )
 }
