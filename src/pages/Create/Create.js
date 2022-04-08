@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useFetch } from '../../hooks/useFetch'
-
+import { projectFirestore } from "../../firebase/config"
 
 import './Create.css'
 
@@ -13,19 +12,23 @@ export function Create() {
   const [newIngredient, setNewIngredient] = useState('')
   const [newIngredientError, setNewIngredientError] = useState(false)
   const newIngredientRef = useRef(null)
-  const {data, pending, error, postData} = useFetch('http://localhost:3000/recipes', "POST")
   const history = useHistory()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const payload = {
+    const doc = {
       title,
       ingredients,
       method,
       cookingTime: cookingTime + ' minutes'
     }
 
-    postData(payload)
+    try {
+      await projectFirestore.collection('recipes').add(doc)
+      history.push('/')
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   const handleAddNewIngredient = (e) => {
@@ -43,12 +46,6 @@ export function Create() {
     setNewIngredient('')
     newIngredientRef.current.focus()
   }
-
-  useEffect(() => {
-    if(data) {
-      history.push('/')
-    }
-  }, [data, history])
 
   return (
     <div className="create">
@@ -75,8 +72,7 @@ export function Create() {
         <span>Cooking Time</span>
         <input type="number"  onChange={e => setCookingTime(e.target.value)} value={cookingTime}/>
       </label>
-      {pending && <p className='loading'>Loading...</p>}
-      {error && <p className='error'>Could not create recipe.</p>}
+
       <button className='btn'>Submit</button>
     </form>
     </div>

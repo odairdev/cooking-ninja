@@ -2,12 +2,12 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBc0XjDcpyMoK3GXX1qJdkPK_QMbck3yBY",
-  authDomain: "cooking-ninja-site-3014b.firebaseapp.com",
-  projectId: "cooking-ninja-site-3014b",
-  storageBucket: "cooking-ninja-site-3014b.appspot.com",
-  messagingSenderId: "1044153147150",
-  appId: "1:1044153147150:web:d2b3261a9c63344c9e415f",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 //Initializing Firebase
