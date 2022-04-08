@@ -7,14 +7,17 @@ import { Search } from './pages/Search/Search'
 import "./App.css";
 import { Recipe } from "./pages/Recipe/Recipe";
 import { NavBar } from "./components/Navbar";
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeSelector } from "./components/ThemeSelector";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
+  const { mode } = useTheme()
+
   return (
-    <div className="App">
+    <div className={`App ${mode}`}>
       <BrowserRouter>
-      <ThemeProvider>
         <NavBar />
+        <ThemeSelector />
         <Switch>
           <Route path={'/'} exact>
             <Home />
@@ -29,7 +32,6 @@ function App() {
             <Recipe />
           </Route>
         </Switch>
-      </ThemeProvider>
       </BrowserRouter>
     </div>
   );

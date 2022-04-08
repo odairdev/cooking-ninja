@@ -1,0 +1,22 @@
+.theme-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px auto;
+  max-width: 1200px;
+}
+
+.mode-icon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.theme-btn {
+  border: 0;
+  padding: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+}
+

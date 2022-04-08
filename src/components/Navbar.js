@@ -16,7 +16,6 @@ export function NavBar() {
         <Link to={'/create'}>
           Create Recipe
         </Link>
-        
       </nav>
     </div>
   )
